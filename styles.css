@@ -1468,7 +1468,7 @@ footer {
 /* =============================================
    RESPONSIVE — MOBILE (≤ 768px)
    ============================================= */
-/* @media (max-width: 768px) {
+ @media (max-width: 768px) {
 
     .mobile-menu-btn {
         display: flex;
@@ -1698,13 +1698,13 @@ footer {
     .footer-section p {
         max-width: 100%;
     }
-} */
+} 
 
 
 /* =============================================
    RESPONSIVE — SMALL MOBILE (≤ 480px)
    ============================================= */
-/* @media (max-width: 480px) {
+ @media (max-width: 480px) {
     .logo span {
         font-size: 1.05rem;
     }
@@ -1747,8 +1747,7 @@ footer {
     .hero-features {
         grid-template-columns: 1fr;
     }
-} */
-
+}
 
 /* =============================================
    ACCESSIBILITY
