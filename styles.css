@@ -1994,7 +1994,7 @@ footer {
     color: var(--accent);
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
     .member-hero-content {
         flex-direction: column;
         align-items: flex-start;
@@ -2009,4 +2009,414 @@ footer {
         grid-template-columns: 1fr;
         padding-top: 2.5rem;
     }
-} */
+}
+
+
+/* =============================================
+   BREADCRUMB NAVIGATION
+   ============================================= */
+.breadcrumb {
+    background: var(--primary);
+    padding: 0.75rem clamp(1.25rem, 5vw, 5%);
+    margin-top: 70px;
+    border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: var(--container);
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+}
+
+.breadcrumb li {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.breadcrumb li a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--duration) var(--ease);
+}
+
+.breadcrumb li a:hover {
+    color: var(--text);
+}
+
+.breadcrumb li + li::before {
+    content: '›';
+    margin-right: 0.5rem;
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.breadcrumb li[aria-current="page"] {
+    color: var(--text);
+    font-weight: 500;
+}
+
+
+/* =============================================
+   ABOUT PAGE — PROFILE SECTIONS
+   ============================================= */
+.about-hero {
+    margin-top: 0;
+}
+
+.breadcrumb + .about-hero,
+.breadcrumb + .member-hero {
+    margin-top: 0;
+}
+
+.about-body {
+    max-width: var(--container);
+}
+
+.profile-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.profile-section:last-child {
+    border-bottom: none;
+}
+
+.profile-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+}
+
+.profile-section p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.profile-section p a {
+    color: var(--accent);
+    transition: color var(--duration) var(--ease);
+}
+
+.profile-section p a:hover {
+    color: var(--text);
+}
+
+
+/* --- Career Timeline --- */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent-dark), transparent);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0.35rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--secondary);
+    box-shadow: 0 0 0 2px var(--accent);
+    z-index: 1;
+}
+
+.timeline-content h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+}
+
+.timeline-date {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+
+
+/* --- Court List --- */
+.court-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+}
+
+.court-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: all var(--duration) var(--ease);
+}
+
+.court-list li:hover {
+    border-color: var(--border-hover);
+    background: var(--surface-hover);
+    transform: translateX(4px);
+}
+
+.court-list li i {
+    color: var(--accent);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+
+/* --- Approach Grid --- */
+.approach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.approach-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem 1.5rem;
+    transition: all var(--duration) var(--ease);
+}
+
+.approach-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.approach-card i {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.approach-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.approach-card p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+
+/* --- FAQ Accordion --- */
+.faq-section {
+    border-bottom: none;
+}
+
+.faq-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: border-color var(--duration) var(--ease);
+}
+
+.faq-item:hover,
+.faq-item.active {
+    border-color: var(--border-hover);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.15rem 1.5rem;
+    background: var(--surface);
+    border: none;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: background var(--duration) var(--ease);
+}
+
+.faq-question:hover {
+    background: var(--surface-hover);
+}
+
+.faq-question i {
+    color: var(--accent);
+    font-size: 0.8rem;
+    transition: transform var(--duration) var(--ease);
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease), padding 0.4s var(--ease);
+    padding: 0 1.5rem;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px;
+    padding: 0 1.5rem 1.25rem;
+}
+
+.faq-answer p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.faq-answer a {
+    color: var(--accent);
+}
+
+
+/* --- Contact CTA Card --- */
+.contact-cta-section {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+.contact-cta-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2.5rem;
+    text-align: center;
+}
+
+.contact-cta-card h2 {
+    font-size: 1.4rem;
+    border-bottom: none;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.contact-cta-card p {
+    max-width: 540px;
+    margin: 0 auto 2rem;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-phone {
+    background: transparent;
+    color: var(--accent);
+}
+
+.cta-phone:hover {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+
+/* --- Screen Reader Only (Accessibility) --- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* --- About Page Responsive --- */
+@media (max-width: 768px) {
+    .breadcrumb {
+        margin-top: 60px;
+        padding: 0.6rem 1.25rem;
+    }
+
+    .timeline {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-item {
+        padding-left: 1rem;
+    }
+
+    .court-list {
+        grid-template-columns: 1fr;
+    }
+
+    .approach-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-cta-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .cta-actions {
+        flex-direction: column;
+    }
+
+    .cta-actions .cta-primary {
+        justify-content: center;
+    }
+}

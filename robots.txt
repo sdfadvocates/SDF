@@ -1,0 +1,11 @@
+# robots.txt for SDF Associates
+# https://www.sdf-advocates.co.in
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.sdf-advocates.co.in/sitemap.xml
+
+# Disallow utility files
+Disallow: /Images/Test.txt
