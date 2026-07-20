@@ -2420,3 +2420,212 @@ footer {
         justify-content: center;
     }
 }
+
+
+/* =============================================
+   MAP / LOCATION SECTION — Premium Design
+   ============================================= */
+.map-section {
+    padding: 0;
+    background: var(--secondary);
+}
+
+.map-wrapper {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    min-height: 480px;
+    max-width: none;
+}
+
+.map-info-card {
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.75rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--primary) 0%, hsl(230, 25%, 10%) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle decorative accent line at top */
+.map-info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent-dark), transparent);
+}
+
+.map-info-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.map-icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(201, 169, 110, 0.1);
+    border: 1px solid rgba(201, 169, 110, 0.2);
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+
+.map-icon-wrap i {
+    font-size: 1.15rem;
+    color: var(--accent);
+}
+
+.map-label {
+    display: block;
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+}
+
+.map-info-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.map-address {
+    font-style: normal;
+    color: var(--text-muted);
+    line-height: 1.9;
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+    padding-left: 0;
+}
+
+.map-contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+}
+
+.map-contact-details a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color var(--duration) var(--ease);
+}
+
+.map-contact-details a:hover {
+    color: var(--accent);
+}
+
+.map-contact-details a i {
+    color: var(--accent);
+    font-size: 0.85rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.map-hours {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.map-hours i {
+    color: var(--accent);
+    font-size: 0.85rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.map-directions-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.75rem;
+    background: var(--accent);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all var(--duration) var(--ease);
+    width: fit-content;
+    letter-spacing: 0.3px;
+}
+
+.map-directions-btn:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201, 169, 110, 0.25);
+}
+
+.map-embed-container {
+    position: relative;
+    min-height: 480px;
+}
+
+.map-embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(0.3) contrast(1.05);
+    transition: filter 0.5s var(--ease);
+}
+
+.map-embed-container iframe:hover {
+    filter: grayscale(0) contrast(1);
+}
+
+
+/* --- Map Section Responsive (Tablet) --- */
+@media (max-width: 1024px) {
+    .map-wrapper {
+        grid-template-columns: 360px 1fr;
+    }
+}
+
+/* --- Map Section Responsive (Mobile) --- */
+@media (max-width: 768px) {
+    .map-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .map-info-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .map-embed-container {
+        min-height: 320px;
+    }
+
+    .map-info-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .map-directions-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
