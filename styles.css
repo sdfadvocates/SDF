@@ -1388,6 +1388,9 @@ footer {
     color: var(--primary);
 }
 
+.hero-content .hero-text.reveal.visible {
+    padding-top: 37px;
+}
 
 /* =============================================
    RESPONSIVE — TABLET (≤ 1024px)
@@ -1468,7 +1471,7 @@ footer {
 /* =============================================
    RESPONSIVE — MOBILE (≤ 768px)
    ============================================= */
- @media (max-width: 768px) {
+@media (max-width: 768px) {
 
     .mobile-menu-btn {
         display: flex;
@@ -1698,13 +1701,25 @@ footer {
     .footer-section p {
         max-width: 100%;
     }
-} 
+
+    .timeline-marker {
+        left: -24px !important;
+    }
+
+    .member-hero {
+        padding-top: 2rem !important;
+    }
+
+    .hero-content .hero-text.reveal.visible {
+        padding-top: 0;
+    }
+}
 
 
 /* =============================================
    RESPONSIVE — SMALL MOBILE (≤ 480px)
    ============================================= */
- @media (max-width: 480px) {
+@media (max-width: 480px) {
     .logo span {
         font-size: 1.05rem;
     }
@@ -1741,7 +1756,8 @@ footer {
     }
 
     .hero {
-        padding-top: 118px;
+        padding-top: 105px;
+        padding-bottom: 30px;
     }
 
     .hero-features {
@@ -1810,11 +1826,11 @@ footer {
    TEAM MEMBER DETAIL PAGE
    ============================================= */
 .member-hero {
-    min-height: 45vh;
+    min-height: 40vh;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     display: flex;
     align-items: flex-end;
-    padding: 8rem clamp(1rem, 5vw, 5%) 3rem;
+    padding: 0rem clamp(1rem, 5vw, 5%) 3rem;
     position: relative;
 }
 
@@ -1855,7 +1871,7 @@ footer {
 }
 
 .member-hero-text h1 {
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-size: 22px;
     font-weight: 700;
     color: var(--text);
     margin-bottom: 0.3rem;
@@ -2009,6 +2025,10 @@ footer {
         grid-template-columns: 1fr;
         padding-top: 2.5rem;
     }
+
+    .member-hero-content {
+        gap: 2rem;
+    }
 }
 
 
@@ -2047,7 +2067,7 @@ footer {
     color: var(--text);
 }
 
-.breadcrumb li + li::before {
+.breadcrumb li+li::before {
     content: '›';
     margin-right: 0.5rem;
     color: var(--text-muted);
@@ -2067,8 +2087,8 @@ footer {
     margin-top: 0;
 }
 
-.breadcrumb + .about-hero,
-.breadcrumb + .member-hero {
+.breadcrumb+.about-hero,
+.breadcrumb+.member-hero {
     margin-top: 0;
 }
 
@@ -2312,7 +2332,7 @@ footer {
 
 .faq-item.active .faq-answer {
     max-height: 300px;
-    padding: 0 1.5rem 1.25rem;
+    padding: 18px 1.5rem 1.25rem;
 }
 
 .faq-answer p {
@@ -2388,7 +2408,7 @@ footer {
 /* --- About Page Responsive --- */
 @media (max-width: 768px) {
     .breadcrumb {
-        margin-top: 60px;
+        margin-top: 73px;
         padding: 0.6rem 1.25rem;
     }
 
@@ -2627,5 +2647,64 @@ footer {
     .map-directions-btn {
         width: 100%;
         justify-content: center;
+    }
+}
+
+
+/* =============================================
+   FLOATING WHATSAPP BUTTON
+   ============================================= */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    animation: whatsapp-pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    color: #fff;
+}
+
+.whatsapp-float:active {
+    transform: scale(0.95);
+}
+
+@keyframes whatsapp-pulse {
+    0% {
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0.1);
+    }
+
+    100% {
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    }
+}
+
+/* Responsive: slightly smaller on mobile */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 52px;
+        height: 52px;
+        font-size: 28px;
+        bottom: 20px;
+        right: 20px;
     }
 }
