@@ -662,30 +662,120 @@ nav {
 
 
 /* =============================================
-   SERVICES / PRACTICE AREAS
+   SERVICES / PRACTICE AREAS — 3D Slider
    ============================================= */
 .services {
     padding: var(--section-pad);
     background: var(--primary);
     position: relative;
+    overflow: hidden;
 }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 1.5rem;
+/* --- Slider Wrapper & Viewport --- */
+.services-slider-wrapper {
+    position: relative;
     max-width: var(--container);
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
+.services-slider-viewport {
+    flex: 1;
+    overflow: hidden;
+    perspective: 1200px;
+    padding: 2.5rem 0;
+}
+
+.services-slider-track {
+    display: flex;
+    align-items: stretch;
+    transition: transform .6s cubic-bezier(.22, .68, 0, 1);
+    will-change: transform;
+}
+
+/* --- Individual Slide --- */
+.service-slide {
+    flex: 0 0 calc(100% / 3);
+    padding: 0 0.875rem;
+    /* display: flex; */
+    transition: transform .6s cubic-bezier(.22, .68, 0, 1),
+        opacity .6s cubic-bezier(.22, .68, 0, 1),
+        filter .6s cubic-bezier(.22, .68, 0, 1);
+    transform-style: preserve-3d;
+    transform: scale(0.88);
+    opacity: 0.45;
+    filter: blur(1.5px);
+}
+
+.service-card-number {
+    display: none;
+}
+
+.service-slide.slide-active {
+    transform: scale(1) translateZ(30px);
+    opacity: 1;
+    filter: blur(0);
+    z-index: 3;
+}
+
+.service-slide.slide-prev {
+    transform: scale(0.92) rotateY(6deg) translateZ(-20px);
+    opacity: 0.7;
+    filter: blur(0.5px);
+    z-index: 2;
+}
+
+.service-slide.slide-next {
+    transform: scale(0.92) rotateY(-6deg) translateZ(-20px);
+    opacity: 0.7;
+    filter: blur(0.5px);
+    z-index: 2;
+}
+
+/* --- Card --- */
 .service-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 2.5rem 2rem;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.5rem 2rem 2rem;
     border-radius: var(--radius-lg);
     transition: all var(--duration) var(--ease);
     position: relative;
     overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dark), var(--accent));
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity var(--duration) var(--ease);
+}
+
+.slide-active .service-card::before {
+    opacity: 1;
+    animation: shimmerBar 3s linear infinite;
+}
+
+@keyframes shimmerBar {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 .service-card::after {
@@ -701,21 +791,62 @@ nav {
     transition: transform var(--duration-slow) var(--ease);
 }
 
-.service-card:hover::after {
+.slide-active .service-card:hover::after {
     transform: scaleX(1);
 }
 
-.service-card:hover {
-    transform: translateY(-5px);
+.slide-active .service-card:hover {
+    transform: translateY(-6px);
     border-color: var(--border-hover);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.35),
+        0 0 40px rgba(201, 169, 110, 0.08);
 }
 
+/* --- Card Number Badge --- */
+.service-card-number {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.35;
+    letter-spacing: 0.05em;
+    font-family: var(--font);
+}
+
+.slide-active .service-card-number {
+    opacity: 0.6;
+}
+
+/* --- Icon --- */
 .service-icon {
     font-size: 2.2rem;
     color: var(--accent);
-    margin-bottom: 1.5rem;
-    transition: transform var(--duration) var(--ease-spring);
+    margin-bottom: 1.25rem;
+    transition: transform var(--duration) var(--ease-spring),
+        color var(--duration) var(--ease);
+    position: relative;
+    width: fit-content;
+}
+
+.service-icon::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: var(--accent);
+    opacity: 0.08;
+    border-radius: 50%;
+    filter: blur(4px);
+    transition: opacity var(--duration) var(--ease);
+}
+
+.slide-active .service-icon::after {
+    opacity: 0.15;
 }
 
 .service-icon.pulse {
@@ -734,6 +865,7 @@ nav {
     }
 }
 
+/* --- Card Title --- */
 .service-card h3 {
     font-size: 1.15rem;
     font-weight: 600;
@@ -741,16 +873,19 @@ nav {
     color: var(--text);
 }
 
+/* --- Card List --- */
 .service-card ul {
-    margin: 1rem 0 1.5rem;
+    margin: 0.5rem 0 1.5rem;
+    flex: 1;
 }
 
 .service-card li {
     color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 0.6rem;
+    font-size: 0.88rem;
+    margin-bottom: 0.55rem;
     padding-left: 1.2rem;
     position: relative;
+    line-height: 1.5;
 }
 
 .service-card li::before {
@@ -762,9 +897,15 @@ nav {
     height: 5px;
     border-radius: 50%;
     background: var(--accent);
-    opacity: 0.6;
+    opacity: 0.5;
+    transition: opacity var(--duration) var(--ease);
 }
 
+.slide-active .service-card li::before {
+    opacity: 0.8;
+}
+
+/* --- CTA Link --- */
 .service-cta {
     color: var(--accent);
     font-weight: 600;
@@ -773,11 +914,104 @@ nav {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
+    margin-top: auto;
 }
 
 .service-cta:hover {
     color: var(--text);
     gap: 0.6rem;
+}
+
+/* --- Navigation Arrows --- */
+.slider-arrow {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--duration) var(--ease);
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.slider-arrow:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--primary);
+    box-shadow: 0 0 25px rgba(201, 169, 110, 0.3);
+    transform: scale(1.08);
+}
+
+.slider-arrow:active {
+    transform: scale(0.95);
+}
+
+/* --- Dots & Counter --- */
+.slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 0.5rem;
+    max-width: var(--container);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slider-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: all var(--duration) var(--ease);
+    padding: 0;
+}
+
+.slider-dot:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.3);
+}
+
+.slider-dot.dot-active {
+    background: var(--accent);
+    width: 24px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(201, 169, 110, 0.4);
+}
+
+.slider-counter {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+}
+
+.slider-counter-sep {
+    margin: 0 0.15rem;
+    opacity: 0.4;
+}
+
+#services-current {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
 }
 
 
@@ -1613,9 +1847,51 @@ footer {
         padding: 1.75rem 1.25rem;
     }
 
-    .services-grid {
-        grid-template-columns: 1fr;
+    /* --- Mobile Slider Overrides --- */
+    .service-slide {
+        flex: 0 0 100%;
     }
+
+    .services-slider-wrapper {
+        gap: 0;
+    }
+
+    .slider-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 38px;
+        height: 38px;
+        font-size: 0.85rem;
+        z-index: 10;
+    }
+
+    .slider-arrow--prev {
+        left: 0.25rem;
+    }
+
+    .slider-arrow--next {
+        right: 0.25rem;
+    }
+
+    .slider-arrow:hover {
+        transform: translateY(-50%) scale(1.05);
+    }
+
+    .services-slider-viewport {
+        padding: 1.5rem 0;
+    }
+
+    .service-slide.slide-prev {
+        transform: scale(0.9) rotateY(4deg) translateZ(-10px);
+    }
+
+    .service-slide.slide-next {
+        transform: scale(0.9) rotateY(-4deg) translateZ(-10px);
+    }
+
+
+
 
     .senior-partners {
         margin-bottom: 3rem;

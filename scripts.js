@@ -129,20 +129,89 @@
     }
 
 
-    // ─── Service Card Hover (Icon Pulse) ───────
-    const serviceCards = document.querySelectorAll('.service-card');
+    // ─── 3D Services Slider ──────────────────────
+    const track = document.querySelector('.services-slider-track');
+    const allSlides = document.querySelectorAll('.service-slide');
+    const dots = document.getElementById('services-dots');
+    const counter = document.getElementById('services-current');
 
-    serviceCards.forEach(card => {
-        const icon = card.querySelector('.service-icon');
-        if (!icon) return;
+    if (track && allSlides.length) {
+        let idx = 0, perView = innerWidth > 768 ? 3 : 1, timer;
+        const total = allSlides.length;
+        const maxIdx = () => Math.max(0, total - perView);
 
-        card.addEventListener('mouseenter', () => {
-            icon.classList.add('pulse');
+        function go(i, animate) {
+            idx = i < 0 ? maxIdx() : i > maxIdx() ? 0 : i;
+            track.style.transition = animate === false ? 'none' : 'transform .6s cubic-bezier(.22,.68,0,1)';
+            track.style.transform = `translateX(-${idx * (100 / perView)}%)`;
+
+            allSlides.forEach((s, n) => {
+                s.className = 'service-slide';
+                if (perView === 1) {
+                    if (n === idx) s.classList.add('slide-active');
+                    else if (n === idx - 1 || (!idx && n === total - 1)) s.classList.add('slide-prev');
+                    else if (n === idx + 1 || (idx === total - 1 && !n)) s.classList.add('slide-next');
+                } else {
+                    if (n === idx + 1 && n < total) s.classList.add('slide-active');
+                    else if (n === idx) s.classList.add('slide-prev');
+                    else if (n === idx + 2 && n < total) s.classList.add('slide-next');
+                }
+            });
+
+            if (dots) dots.querySelectorAll('.slider-dot').forEach((d, n) =>
+                d.classList.toggle('dot-active', n === idx));
+            if (counter) counter.textContent = perView === 1 ? idx + 1 : Math.min(idx + 2, total);
+        }
+
+        // Build dots
+        if (dots) {
+            dots.innerHTML = Array.from({ length: total }, (_, i) =>
+                `<button class="slider-dot${i ? '' : ' dot-active'}" aria-label="Slide ${i + 1}"></button>`
+            ).join('');
+            dots.addEventListener('click', e => {
+                const d = e.target.closest('.slider-dot');
+                if (d) { go([...dots.children].indexOf(d)); play(); }
+            });
+        }
+
+        // Arrows
+        document.getElementById('services-prev')?.addEventListener('click', () => { go(idx - 1); play(); });
+        document.getElementById('services-next')?.addEventListener('click', () => { go(idx + 1); play(); });
+
+        // Touch swipe
+        let tx = 0;
+        track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', e => {
+            const dx = tx - e.changedTouches[0].clientX;
+            if (Math.abs(dx) > 50) { go(idx + (dx > 0 ? 1 : -1)); play(); }
+        }, { passive: true });
+
+        // Auto-play
+        const play = () => { clearInterval(timer); timer = setInterval(() => go(idx + 1), 5000); };
+        const wrap = document.querySelector('.services-slider-wrapper');
+        if (wrap) {
+            wrap.addEventListener('mouseenter', () => clearInterval(timer));
+            wrap.addEventListener('mouseleave', play);
+        }
+
+        // Resize
+        addEventListener('resize', () => {
+            const nv = innerWidth > 768 ? 3 : 1;
+            if (nv !== perView) { perView = nv; go(Math.min(idx, maxIdx()), false); }
         });
 
-        card.addEventListener('animationend', () => {
-            icon.classList.remove('pulse');
-        }, true);
-    });
+        // Icon pulse
+        allSlides.forEach(s => {
+            const c = s.querySelector('.service-card'), ic = c?.querySelector('.service-icon');
+            if (c && ic) {
+                c.addEventListener('mouseenter', () => ic.classList.add('pulse'));
+                c.addEventListener('animationend', () => ic.classList.remove('pulse'), true);
+            }
+        });
+
+        go(0, false);
+        play();
+    }
 
 })();
+
